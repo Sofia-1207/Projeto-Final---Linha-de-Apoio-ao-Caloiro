@@ -44,10 +44,10 @@ npm install
 ```
 
 3. **Configurar variáveis de ambiente**
-Criar um ficheiro `.env` na raiz do projeto com o seguinte conteúdo:
+Criar um ficheiro `.env` na raiz do projeto com a estrutura seguinte (substitua pelos valores reais do seu painel do Supabase):
 ```env
 VITE_SUPABASE_URL=https://klsrwaropwdmxtbkbxqz.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtsc3J3YXJvcHdkbXh0YmtieHF6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNTk5MDcsImV4cCI6MjA4OTgzNTkwN30.wXK6ac53PvM4oy1fZ8h7GxJuu3UjFn3TaF3fyUl8emM
+VITE_SUPABASE_ANON_KEY=sua_chave_publica_anonima_aqui
 ```
 
 4. **Configurar a base de dados**
@@ -65,9 +65,9 @@ Executar o script SQL em `base de dados/schema.sql` no Supabase SQL Editor para 
 4. Cria credenciais OAuth:
    - Vai para "Credentials" → "Create Credentials" → "OAuth client ID"
    - Tipo: "Web application"
-   - Adiciona os seguintes URIs:
+   - Adiciona os seguintes URIs autorizados (ajuste caso mude de porta ou use IP local):
      - `http://localhost:5174`
-     - `https://klsrwaropwdmxtbkbxqz.supabase.co/auth/v1/callback`
+     - `https://klsrwaropwdmxtbkbxqz.supabase.co`
 
 ### Passo 2: Supabase Dashboard
 
@@ -76,7 +76,7 @@ Executar o script SQL em `base de dados/schema.sql` no Supabase SQL Editor para 
 3. Configura:
    - **Client ID**: Copia do Google Cloud Console
    - **Client Secret**: Copia do Google Cloud Console
-   - **Redirect URL**: `https://klsrwaropwdmxtbkbxqz.supabase.co/auth/v1/callback`
+   - **Redirect URL**: `https://klsrwaropwdmxtbkbxqz.supabase.co`
 
 ### Passo 3: Testar a Autenticação
 
@@ -88,12 +88,22 @@ Executar o script SQL em `base de dados/schema.sql` no Supabase SQL Editor para 
 
 ## Executar a Aplicação
 
-**Modo de desenvolvimento:**
+**Modo de desenvolvimento local (PC):**
 ```bash
 npm run dev
 ```
+A aplicação estará disponível por padrão em `http://localhost:5174`.
 
-A aplicação estará disponível em `http://localhost:5174`
+**Como testar num dispositivo móvel (Telemóvel):**
+Para testar a responsividade e o comportamento da aplicação diretamente num telemóvel partilhando a mesma rede local (hotspot ou Wi-Fi):
+
+1. Execute o comando de inicialização adicionando a flag de host:
+```bash
+npm run dev -- --host
+```
+2. O Vite irá expor o projeto na rede e fornecer o seu endereço de IP local (ex: `http://172.20.10.14:5174/`).
+3. Certifique-se de adicionar temporariamente este endereço de IP gerado como um URI de origem e redirecionamento válido nas definições do Google Cloud Console e do Supabase Auth.
+4. Aceda a esse link `http://172.20.10.14:5174/` através do navegador do telemóvel.
 
 **Build para produção:**
 ```bash
@@ -128,7 +138,6 @@ Linha de Apoio ao Caloiro/
 ├── base de dados/
 │   └── schema.sql                     # Schema da base de dados
 ├── Imagens/                           # Imagens e assets
-├── .env                               # Variáveis de ambiente
 ├── package.json                       # Dependências do projeto
 ├── vite.config.ts                     # Configuração Vite
 ├── tailwind.config.js                 # Configuração TailwindCSS
