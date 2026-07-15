@@ -74,7 +74,7 @@ export function PaginaLogin() {
           <img 
             src={`./Imagens/imagens/Logotipo1.png?v=${Date.now()}`} 
             alt="Linha de Apoio ao Caloiro" 
-            className="w-32 h-32 mb-8 object-contain"
+            className="w-40 h-40 mb-8 object-contain"
           />
           <h1 className="text-6xl font-bold text-center mb-4">
             Linha de Apoio
